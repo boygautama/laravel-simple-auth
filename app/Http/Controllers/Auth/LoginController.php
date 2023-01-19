@@ -23,10 +23,10 @@ class LoginController extends Controller
     {
         $input = $request->all();
         $this->validate($request, [
-            'email' => 'required|email',
+            'username' => 'required',
             'password' => 'required',
         ]);
-        if (auth()->attempt(array('email' => $input['email'], 'password' => $input['password']))) {
+        if (auth()->attempt(array('username' => $input['username'], 'password' => $input['password']))) {
        
             if (auth()->user()->type == 'admin') {
                 return redirect()->route('admin.home');
@@ -40,5 +40,9 @@ class LoginController extends Controller
             return redirect()->route('login')
                 ->with('error', 'terjadi kesalahan, user atau password anda');
         }
+    }
+    public function username()
+    {
+        return 'username';
     }
 }
